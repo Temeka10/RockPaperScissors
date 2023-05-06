@@ -36,7 +36,7 @@ struct ContentView: View {
                             .background(.black)
                             .clipShape(Capsule())
                     if shouldWin == true {
-                        Text("You should win")
+                        Text("You must win")
                             .padding()
                             .foregroundStyle(.black)
                             .font(.headline.weight(.semibold))
@@ -44,7 +44,7 @@ struct ContentView: View {
                             .clipShape(RoundedRectangle(cornerRadius: 20))
                     } else {
                         Text("You must lose")
-                            .padding(10)
+                            .padding()
                             .foregroundStyle(.black)
                             .font(.headline.weight(.semibold))
                             .background(.red
@@ -175,11 +175,11 @@ struct ContentView: View {
         shouldWin.toggle()
     }
     func game (){
-        if finalGoal == 10{
+        if finalGoal == 10 {
             endOfTheGame = true
         }
         randomMove = Int.random(in: 0...2)
-        shouldWin.toggle()
+        shouldWin = Bool.random()
     }
     }
     private func createBackGroundView() -> some View {
