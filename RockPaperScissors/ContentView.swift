@@ -86,7 +86,7 @@ struct ContentView: View {
                                     action: game
                 ),
                         secondaryButton: .destructive(
-                            Text("Restart the game"),
+                            Text("Restart The game"),
                             action: resetTheGame
                         )
                 )
