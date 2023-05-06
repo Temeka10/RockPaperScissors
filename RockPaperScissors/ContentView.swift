@@ -14,7 +14,6 @@ struct ContentView: View {
     @State private var score = 0
     @State private var finalGoal = 0
     let possibleMoves = ["✋", "✊", "✌️"]
-    let WinningMoves = ["✋", "✊", "✌️"]
     @State private var randomMove = Int.random(in: 0...2)
     @State private var shouldWin = Bool.random()
     var body: some View {
@@ -36,7 +35,6 @@ struct ContentView: View {
                             .padding()
                             .background(.black)
                             .clipShape(Capsule())
-                    
                     if shouldWin == true {
                         Text("You should win")
                             .padding()
@@ -45,7 +43,7 @@ struct ContentView: View {
                             .background(.green)
                             .clipShape(RoundedRectangle(cornerRadius: 20))
                     } else {
-                        Text("You should lose")
+                        Text("You must lose")
                             .padding(10)
                             .foregroundStyle(.black)
                             .font(.headline.weight(.semibold))
@@ -53,7 +51,7 @@ struct ContentView: View {
                             )
                             .clipShape(RoundedRectangle(cornerRadius: 20))
                     }
-                        Text("You should play")
+                        Text("Your play")
                         .foregroundStyle(.black)
                         .font(.headline.weight(.semibold))
                         .padding()
@@ -86,13 +84,10 @@ struct ContentView: View {
                                     action: game
                 ),
                         secondaryButton: .destructive(
-                            Text("Restart The game"),
+                            Text("Restart"),
                             action: resetTheGame
                         )
                 )
-//                        Button("Continue", action: game)
-//                        Button("Restart the game", action: resetTheGame)
-//
                 }
                 .alert("End of the game", isPresented: $endOfTheGame) {
                     Button("Restart the game", action: resetTheGame)
@@ -113,56 +108,78 @@ struct ContentView: View {
         }
     }
     func buttonTapped(_ number: Int){
-        showingScore = true
         if possibleMoves[randomMove] ==  possibleMoves[number]  {
             score += 0
             scoreTitle = "Draw"
+            showingScore = true
         }
         if possibleMoves[randomMove] == "✋" && shouldWin == true && possibleMoves[number] == "✌️"{
             score += 1
             scoreTitle = "Correct"
+            showingScore = true
         } else if possibleMoves[randomMove] == "✋" && shouldWin == true && possibleMoves[number] == "✊" {
             score -= 1
             scoreTitle = "Incorrect"
+            showingScore = true
         }
         if possibleMoves[randomMove] == "✋" && shouldWin == false && possibleMoves[number] == "✊"{
             score += 1
             scoreTitle = "Correct"
+            showingScore = true
         } else if possibleMoves[randomMove] == "✋" && shouldWin == false && possibleMoves[number] == "✌️" {
             score -= 1
             scoreTitle = "Incorrect"
+            showingScore = true
         }
-        if possibleMoves[randomMove] == "rock" && shouldWin == true && possibleMoves[number] == "paper"{
+        if possibleMoves[randomMove] == "✊" && shouldWin == true && possibleMoves[number] == "✋"{
             score += 1
-        } else if possibleMoves[randomMove] == "rock" && shouldWin == true && possibleMoves[number] == "scissors" {
+            scoreTitle = "Correct"
+            showingScore = true
+        } else if possibleMoves[randomMove] == "✊" && shouldWin == true && possibleMoves[number] == "✌️" {
             score -= 1
+            scoreTitle = "Incorrect"
+            showingScore = true
         }
-        if possibleMoves[randomMove] == "rock" && shouldWin == false && possibleMoves[number] == "scissors"{
+        if possibleMoves[randomMove] == "✊" && shouldWin == false && possibleMoves[number] == "✌️"{
             score += 1
-        } else if possibleMoves[randomMove] == "rock" && shouldWin == false && possibleMoves[number] == "paper" {
+            scoreTitle = "Correct"
+            showingScore = true
+        } else if possibleMoves[randomMove] == "✊" && shouldWin == false && possibleMoves[number] == "✋" {
             score -= 1
+            scoreTitle = "Incorrect"
+            showingScore = true
         }
-        if possibleMoves[randomMove] == "scissors" && shouldWin == true && possibleMoves[number] == "rock"{
+        if possibleMoves[randomMove] == "✌️" && shouldWin == true && possibleMoves[number] == "✊"{
             score += 1
-        } else if possibleMoves[randomMove] == "scissors" && shouldWin == true && possibleMoves[number] == "paper"  {
+            scoreTitle = "Correct"
+            showingScore = true
+        } else if possibleMoves[randomMove] == "✌️" && shouldWin == true && possibleMoves[number] == "✋"  {
             score -= 1
+            scoreTitle = "Incorrect"
+            showingScore = true
         }
-        if possibleMoves[randomMove] == "scissors" && shouldWin == false && possibleMoves[number] == "paper"{
+        if possibleMoves[randomMove] == "✌️" && shouldWin == false && possibleMoves[number] == "✋"{
             score += 1
-        } else if possibleMoves[randomMove] == "scissors" && shouldWin == false && possibleMoves[number] == "rock"{
+            scoreTitle = "Correct"
+            showingScore = true
+        } else if possibleMoves[randomMove] == "✌️" && shouldWin == false && possibleMoves[number] == "✊"{
             score -= 1
-        }
-        if finalGoal == 10{
-            endOfTheGame = true
+            scoreTitle = "Incorrect"
+            showingScore = true
         }
         }
     func resetTheGame(){
         finalGoal = 0
         score = 0
         randomMove = Int.random(in: 0...2)
+        shouldWin.toggle()
     }
     func game (){
+        if finalGoal == 10{
+            endOfTheGame = true
+        }
         randomMove = Int.random(in: 0...2)
+        shouldWin.toggle()
     }
     }
     private func createBackGroundView() -> some View {
