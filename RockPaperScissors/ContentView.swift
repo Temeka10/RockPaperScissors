@@ -25,16 +25,21 @@ struct ContentView: View {
                     .font(.largeTitle.bold())
                     .foregroundColor(.white)
                 VStack(spacing: 15) {
+                    HStack {
                         Text("Computer plays")
                             .foregroundStyle(.black)
                             .font(.headline.weight(.semibold))
                             .padding()
-                            .background(.gray)
+                            .background(.secondary)
                             .clipShape(RoundedRectangle(cornerRadius: 20))
-                       Text(possibleMoves[randomMove])
+                        Text(possibleMoves[randomMove])
                             .padding()
                             .background(.black)
                             .clipShape(Capsule())
+                    }
+                    .padding()
+                    .background(.ultraThickMaterial)
+                    .clipShape(RoundedRectangle(cornerRadius: 20))
                     if shouldWin == true {
                         Text("You must win")
                             .padding()
@@ -51,25 +56,30 @@ struct ContentView: View {
                             )
                             .clipShape(RoundedRectangle(cornerRadius: 20))
                     }
+                    VStack {
                         Text("Your play")
-                        .foregroundStyle(.black)
-                        .font(.headline.weight(.semibold))
-                        .padding()
-                        .background(.gray)
-                        .clipShape(RoundedRectangle(cornerRadius: 20))
-                    HStack {
-                        ForEach(0..<3) { number in
-                            Button {
-                                buttonTapped(number)
-                                finalGoal += 1
-                            } label: {
-                                Text(possibleMoves[number])
-                                    .padding()
-                                    .background(.black)
-                                    .clipShape(Capsule())
+                            .foregroundStyle(.black)
+                            .font(.headline.weight(.semibold))
+                            .padding()
+                            .background(.secondary)
+                            .clipShape(RoundedRectangle(cornerRadius: 20))
+                        HStack {
+                            ForEach(0..<3) { number in
+                                Button {
+                                    buttonTapped(number)
+                                    finalGoal += 1
+                                } label: {
+                                    Text(possibleMoves[number])
+                                        .padding()
+                                        .background(.black)
+                                        .clipShape(Capsule())
+                                }
                             }
                         }
                     }
+                    .padding()
+                    .background(.ultraThickMaterial)
+                    .clipShape(RoundedRectangle(cornerRadius: 20))
                 }
                 .frame(maxWidth: .infinity)
                 .padding(.vertical, 20)
